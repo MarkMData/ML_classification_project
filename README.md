@@ -7,7 +7,7 @@
 
 ## Overview  
 
-The aim of the project was to evaluate whether drug use could be predicted from personality trait and demographic variables using a number of classification methods (logistic regression, k-nearest neighbours, classification tress, random forests, support vector machines and canonical variate analysis).  The data was based on All analysis was completed using R.  
+The aim of the project was to evaluate whether drug use could be predicted from personality trait and demographic variables using a number of classification methods (logistic regression with lasso penalty, k-nearest neighbours, classification trees, random forests, support vector machines and canonical variate analysis).  The classification threshold used for all models was 0.5 such that probabilities above the threshold were deemed to indicate drug use and values below the threshold no drug use and the metrics used to evaluate model performance were accuracy, sensitivity and specificity. The data was based on All analysis was completed using R.  
 
 <br>  
 
@@ -41,18 +41,24 @@ The dataset was split into training (50% of observations), validation (30% of ob
 
 Figure 2 contains correlations, scatterplots, and density plots for all the independent variables. There are no strong correlations between any of the predictor variables meaning multicollinearity was not a concern, but there is evidence that some are not normally distributed and there appears to be an extreme outlier in the ethnicity data.  
 <br>  
-![Figure2](https://github.com/MarkMData/ML_classification_project/blob/main/images/pairplots.jpeg)  
+![Figure2](https://github.com/MarkMData/ML_classification_project/blob/main/images/pairsplot.jpeg)  
 ***Figure 2. Relationships between predictor variables with drug use as a class (0 = never used, 1 = has used).***  
 <br>  
-
-As some of the classification methods such as k-nearest neighbours are sensitive to differences in scale of the variables, the training, validation and test dataset were centered and scaled using the mean and standard deviation from the training data before being used in modelling, and this was also done using the caret package.  
+From the boxplots and scatter plots it appeared that the ethicity variable was comprised of very few unique values. To identify if the ethnicity (or any other variables) had a near zero variance the percentage of unique values and the frequency ratio of the most prevelant to the second most prevelant value for each variable was calculated (using the caret package), with cut offs of 10% for the unique values and 20:1 for the frequency ratio, as recommended by Kuhn & Johnson (2013). The only variable to meet both criteria was the ethicity variable with a frequecy ratio of 30.44 and only 2.33% unique values, and was excluded from all the models. As some of the classification methods such as k-nearest neighbours are sensitive to differences in scale of the variables, the training, validation and test dataset were centered and scaled using the mean and standard deviation from the training data before being used in modelling, and this was also done using the caret package.  
 <br>  
 
 ## Method and Results  
 <br>  
 
-### Logistic regression and variable selection  
+### Logistic regression with lasso penalty  
+The logistic regression model with a lasso penalty was fit using the glmnet package. The value for lambda was chosen using 10 fold cross validation with 100 values of λ evaluated using 10-fold cross validation to identify when the minimum misclassification error occurred and then the value within one standard error of this (λ = 0.196) was selected (see Figure 3).  
+<br>  
+![Figure3](https://github.com/MarkMData/ML_classification_project/blob/main/images/lassoCV.jpeg)  
+<br>  
+### K-nearest neighbours  
+To identify the optimal value for k, 10-fold cross validation on the training data was used to iteratively assess the prediction accuracy for 50 values of k ranging from one to 199 (odd values only to prevent ties) and the results for the model with all predictors and the model with a subset of predictors are displayed in Figure 3. From the plot it can be seen that the model with fewer predictors generally has higher accuracy across all values for k. The model with all predictors had highest avarage cross-validation prediction accuracy on the training data of 0.807 at a value of k = 109.  For the model with the subset of predictors peak prediction accuracy was 0.817 and this occurred at a value of k = 129. Using the selected values of k the out of sample prediction performance for both models was assessed against the validation data with the accuracy, specificity and sensitivity displayed in Table 4. On the validation data the model with all predictors had accuracy of 0.783, sensitivity of 0.767 and specificity of 0.8 while the model with the subset of predictors had higher accuracy of 0.817, the same level of sensitivity of 0.767 and higher specificity of 0.867. 
 
 
 ### References  
-Fehrman, E., Muhammad, A. K., Mirkes, E. M., Egan, V., & Gorban, A. N. (2017). The Five Factor Model of personality and evaluation of drug consumption risk (arXiv:1506.06297). arXiv. https://doi.org/10.48550/arXiv.1506.06297
+Fehrman, E., Muhammad, A. K., Mirkes, E. M., Egan, V., & Gorban, A. N. (2017). The Five Factor Model of personality and evaluation of drug consumption risk (arXiv:1506.06297). arXiv. https://doi.org/10.48550/arXiv.1506.06297  
+Kuhn, M., & Johnson, K. (2013). Applied Predictive Modeling. Springer. https://doi.org/10.1007/978-1-4614-6849-3
