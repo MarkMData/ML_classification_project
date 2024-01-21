@@ -44,17 +44,31 @@ Figure 2 contains correlations, scatterplots, and density plots for all the inde
 ![Figure2](https://github.com/MarkMData/ML_classification_project/blob/main/images/pairsplot.jpeg)  
 ***Figure 2. Relationships between predictor variables with drug use as a class (0 = never used, 1 = has used).***  
 <br>  
-From the boxplots and scatter plots it appeared that the ethicity variable was comprised of very few unique values. To identify if the ethnicity (or any other variables) had a near zero variance the percentage of unique values and the frequency ratio of the most prevelant to the second most prevelant value for each variable was calculated (using the caret package), with cut offs of 10% for the unique values and 20:1 for the frequency ratio, as recommended by Kuhn & Johnson (2013). The only variable to meet both criteria was the ethicity variable with a frequecy ratio of 30.44 and only 2.33% unique values, and was excluded from all the models. As some of the classification methods such as k-nearest neighbours are sensitive to differences in scale of the variables, the training, validation and test dataset were centered and scaled using the mean and standard deviation from the training data before being used in modelling, and this was also done using the caret package.  
+From the boxplots and scatter plots it appeared that the Ethicity variable was comprised of very few unique values. To identify if the Ethnicity (or any other variables) had a near zero variance the percentage of unique values and the frequency ratio of the most prevelant to the second most prevelant value for each variable was calculated (using the caret package), with cut offs of 10% for the unique values and 20:1 for the frequency ratio, as recommended by Kuhn & Johnson (2013). The only variable to meet both criteria was the Ethicity variable with a frequecy ratio of 30.44 and only 2.33% unique values, and was excluded from all the models. As some of the classification methods such as k-nearest neighbours are sensitive to differences in scale of the variables, the training, validation and test dataset were centered and scaled using the mean and standard deviation from the training data before being used in modelling, and this was also done using the caret package.  
 <br>  
 
 ## Method and Results  
 <br>  
 
 ### Logistic regression with lasso penalty  
-The logistic regression model with a lasso penalty was fit using the glmnet package. The value for lambda was chosen using 10 fold cross validation with 100 values of λ evaluated using 10-fold cross validation to identify when the minimum misclassification error occurred and then the value within one standard error of this (λ = 0.196) was selected (see Figure 3).  
+The logistic regression model with a lasso penalty was fit using the glmnet package. The value for lambda was chosen using 10 fold cross validation with 100 values of lambda evaluated using 10-fold cross validation to identify when the minimum misclassification error occurred and then the value within one standard error of this (lambda = 0.196) was selected (see Figure 3).  
 <br>  
 ![Figure3](https://github.com/MarkMData/ML_classification_project/blob/main/images/lassoCV.jpeg)  
+***Figure 3. Logistic regression with lasso penalty model cross validation miss-classification error for different values of log lambda. Vertical lines are placed at the minimum CV error (left) and one standard error from the minimum (right).***  
+
 <br>  
+With the selected value of lambda, all but two of the variable coefficents were shrunk to zero (Age and X.Country) and both of these had negative values (seee Table 2.). On the validation data the peanlised logistic regression model had an sensitivity of 0.811, specificity of 0.6778 and accuracy of 0.744 (results are displayed in Table 5.).  
+<br>  
+
+***Table 2. Non-zero coefficients for Logistic regression model with lasso penalty***  
+
+| Variable    |  Beta       |
+|-------------|-------------|
+| Age         | -0.228      |
+| X.Country   | -0.085      |  
+
+<br>  
+
 ### K-nearest neighbours  
 To identify the optimal value for k, 10-fold cross validation on the training data was used to iteratively assess the prediction accuracy for 50 values of k ranging from one to 199 (odd values only to prevent ties) and the results for the model with all predictors and the model with a subset of predictors are displayed in Figure 3. From the plot it can be seen that the model with fewer predictors generally has higher accuracy across all values for k. The model with all predictors had highest avarage cross-validation prediction accuracy on the training data of 0.807 at a value of k = 109.  For the model with the subset of predictors peak prediction accuracy was 0.817 and this occurred at a value of k = 129. Using the selected values of k the out of sample prediction performance for both models was assessed against the validation data with the accuracy, specificity and sensitivity displayed in Table 4. On the validation data the model with all predictors had accuracy of 0.783, sensitivity of 0.767 and specificity of 0.8 while the model with the subset of predictors had higher accuracy of 0.817, the same level of sensitivity of 0.767 and higher specificity of 0.867. 
 
