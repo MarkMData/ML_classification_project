@@ -32,14 +32,26 @@ The data set comprised of 600 observations with the dependent variable being a b
 |     SS           |     Participants sensation personality trait   seeking score                 |
 |     Class        |     Whether participants had ever taken legal or   illegal drugs (yes/no)    |  
 <br>  
+
 The dataset was split into training (50% of observations), validation (30% of observations) and test (20% of observations) sets while preserving the distribution of the response variable, and this was done using the caret package. The training dataset was used for the exploratory analysis and model building, the validation dataset was used for comparing the performance of the different modelling approaches and the test dataset was used to assess the performance of the model that had the highest prediction accuracy on the validation data. The relationship between the response variable and the predictors are displayed in the boxplots of Figure 1. From the plots there appears to be an association between drug use and the variables Age, SS and X.Country, and several variables appear to have outliers.  
+<br>  
+![Figure1](https://github.com/MarkMData/ML_classification_project/blob/main/images/boxplots.jpeg)  
+***Figure 1. Distributions for predictor variables by drug use (0 = never used, 1 = has used).***  
 <br>  
 
 Figure 2 contains correlations, scatterplots, and density plots for all the independent variables. There are no strong correlations between any of the predictor variables meaning multicollinearity was not a concern, but there is evidence that some are not normally distributed and there appears to be an extreme outlier in the ethnicity data.  
 <br>  
-
-As some of the classification methods such as k-nearest neighbours are sensitive to differences in scale of the variables, the training, validation and test dataset were centered and scaled using the mean and standard deviation from the training data before being used in modelling.  
+![Figure2](https://github.com/MarkMData/ML_classification_project/blob/main/images/pairplots.jpeg)  
+***Figure 2. Relationships between predictor variables with drug use as a class (0 = never used, 1 = has used).***  
 <br>  
+
+As some of the classification methods such as k-nearest neighbours are sensitive to differences in scale of the variables, the training, validation and test dataset were centered and scaled using the mean and standard deviation from the training data before being used in modelling, and this was also done using the caret package.  
+<br>  
+
+## Method and Results  
+<br>  
+
+### Logistic regression and variable selection  
 
 
 ### References  
