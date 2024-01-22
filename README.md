@@ -90,7 +90,17 @@ The e1071 package was used to implement a SVM model with radial basis function. 
 <br>  
 ![Figure 6](https://github.com/MarkMData/ML_classification_project/blob/main/images/svmplot.jpeg)  
 ***Figure 6. Average 10-fold cross validation error for the SVM model with different values of the cost parameter and gamma.***  
+<br>  
+## Summary  
+The 
+***Table 4. Sensitivity, specificity and accuracy of all models against the validation data***
+|             | Logistic regression  with L1 penalty | KNN         | Trees       | Random forests | Support vector machines |
+|-------------|--------------------------------------|-------------|-------------|----------------|-------------------------|
+| Sensitivity | 0.811                                | 0.844       | 0.811       | 0.767          | 0.844                   |
+| Specificity | 0.678                                | 0.811       | 0.7         | 0.733          | 0.733                   |
+| Accuracy    | 0.744                                | 0.828        | 0.756      | 0.75           | 0.789                   |  
 <br>
+
 
 
 ### References  
