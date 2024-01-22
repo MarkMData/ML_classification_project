@@ -44,7 +44,7 @@ Figure 2 contains correlations, scatterplots, and density plots for all the inde
 ![Figure 2](https://github.com/MarkMData/ML_classification_project/blob/main/images/pairsplot.jpeg)  
 ***Figure 2. Relationships between predictor variables with drug use as a class (0 = never used, 1 = has used).***  
 <br>  
-From the boxplots and scatter plots it appeared that the Ethicity variable was comprised of very few unique values. To identify if the Ethnicity (or any other variables) had a near zero variance the percentage of unique values and the frequency ratio of the most prevelant to the second most prevelant value for each variable was calculated (using the caret package), with cut offs of 10% for the unique values and 20:1 for the frequency ratio, as recommended by Kuhn & Johnson (2013). The only variable to meet both criteria was the Ethicity variable with a frequecy ratio of 30.44 and only 2.33% unique values, and was excluded from all the models. As some of the classification methods such as k-nearest neighbours are sensitive to differences in scale of the variables, the training, validation and test dataset were centered and scaled using the mean and standard deviation from the training data before being used in modelling, and this was also done using the caret package.  
+From the boxplots and scatter plots it appeared that the Ethicity variable was comprised of very few unique values. To identify if the Ethnicity (or any other variables) had a near zero variance the percentage of unique values and the frequency ratio of the most prevelant to the second most prevelant value for each variable was calculated (using the caret package), with cut offs of 10% for the unique values and 20:1 for the frequency ratio, as recommended by Kuhn & Johnson (2013). The only variable to meet both criteria was the Ethicity variable with a frequecy ratio of 30.44 and only 2.33% unique values. As the variable Ethnicity had near zero variance, and contained an extreme outlier, it was excluded from all the models. As some of the classification methods such as k-nearest neighbours are sensitive to differences in scale of the variables, the training, validation and test dataset were centered and scaled using the mean and standard deviation from the training data before being used in modelling, and this was also done using the caret package.  
 <br>  
 
 ## Method and Results  
@@ -71,13 +71,19 @@ To identify the optimal value for k, 10-fold cross validation on the training da
 
 ### Classification tree model  
 
-A full classification tree was created (using the rpart package) and then pruned, to reduce the likelihood of overfitting, based on the complexity parameter that corresponded to the lowest average prediction error within one standrad deviation from the minimum prediction error, determined by 10 fold cross validation. This resulted in a small tree with only the variables X.Country and Age included(see Figure 5). Sensitivity , specificity and accuracy for the classification tree against the validation data were 0.811, 0.7 and 0.7889 respectively (see Table 4).  
+A full classification tree was created (using the rpart package) and then pruned, to reduce the likelihood of overfitting, based on the complexity parameter that corresponded to the lowest average prediction error within one standrad deviation from the minimum prediction error, determined by 10 fold cross validation. This resulted in a small tree with only the variables X.Country and Age included (see Figure 5). Sensitivity , specificity and accuracy for the classification tree against the validation data were 0.811, 0.7 and 0.7889 respectively (see Table 4).
 <br>  
 
 ![Figure 4](https://github.com/MarkMData/ML_classification_project/blob/main/images/treePlot.jpeg)  
 ***Figure 5. Classification tree after pruning.***  
+<br>  
+### Random forests model  
+The random forest model involved constructing many trees using bootstrapped samples of the training data and limiting the variables selected for each split to a random subset of the full variable set and then averaging the result. To identify the best number of variables to include for random selection at each split, 10-fold cross validation was used compare values from two to the full number of predictors. The best average prediction accuary was obtained when including 6 predictors at each split and the resulting performance on the validation data with this configuration was sensitivity of 0.767, specificity of 0.733 and accuracy of 0.75 (results in table 4).  
 
+<br>  
 
+![Figure 5](https://github.com/MarkMData/ML_classification_project/blob/main/images/forestplot.jpeg)  
+***Figure 5. Average 10-fold cross validation accuracy for the random forst model with different numbers of predictors included at each split.*** 
 
 ### References  
 Fehrman, E., Muhammad, A. K., Mirkes, E. M., Egan, V., & Gorban, A. N. (2017). The Five Factor Model of personality and evaluation of drug consumption risk (arXiv:1506.06297). arXiv. https://doi.org/10.48550/arXiv.1506.06297  
