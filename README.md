@@ -83,7 +83,15 @@ The random forest model involved constructing many trees using bootstrapped samp
 <br>  
 
 ![Figure 5](https://github.com/MarkMData/ML_classification_project/blob/main/images/forestplot.jpeg)  
-***Figure 5. Average 10-fold cross validation accuracy for the random forst model with different numbers of predictors included at each split.*** 
+***Figure 5. Average 10-fold cross validation accuracy for the random forst model with different numbers of predictors included at each split.***  
+<br>  
+### Support vector machines model  
+The e1071 package was used to implement a SVM model with radial basis function. A grid of values for the cost parameter (2 raised to the power of intergers from -2 to 10) and gamma (10 raised to the power of integers from -7 to 0) using 10-fold cross validation. The average cross validation error is displayed in Figure 6, with the best tune occuring with a cost parameter of 512 and gamma = 0.00001. Using the best perfoming tuning parameters the SVM against the validation data the sensitvity was 0.844, specificity was 0.733, and accuracy was 0.789 (see Table 4 for results).  
+<br>  
+![Figure 6](https://github.com/MarkMData/ML_classification_project/blob/main/images/svmplot.jpeg)  
+***Figure 6. Average 10-fold cross validation error for the SVM model with different values of the cost parameter and gamma.***  
+<br>
+
 
 ### References  
 Fehrman, E., Muhammad, A. K., Mirkes, E. M., Egan, V., & Gorban, A. N. (2017). The Five Factor Model of personality and evaluation of drug consumption risk (arXiv:1506.06297). arXiv. https://doi.org/10.48550/arXiv.1506.06297  
