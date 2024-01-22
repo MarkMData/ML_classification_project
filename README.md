@@ -7,7 +7,7 @@
 
 ## Overview  
 
-The aim of the project was to evaluate whether drug use could be predicted from personality trait and demographic variables using a number of classification methods (logistic regression with lasso penalty, k-nearest neighbours, classification trees, random forests, support vector machines and canonical variate analysis).  The classification threshold used for all models was 0.5 such that probabilities above the threshold were deemed to indicate drug use and values below the threshold no drug use and the metrics used to evaluate model performance were accuracy, sensitivity and specificity. The data was based on All analysis was completed using R.  
+The aim of the project was to evaluate whether drug use could be predicted from personality trait and demographic variables using a number of classification methods (logistic regression with lasso penalty, k-nearest neighbours, classification trees, random forests and support vector machines).  The classification threshold used for all models was 0.5 such that probabilities above the threshold were deemed to indicate drug use and values below the threshold no drug use and the metrics used to evaluate model performance were accuracy, sensitivity and specificity. The data was based on All analysis was completed using R.  
 
 <br>  
 
@@ -50,7 +50,7 @@ From the boxplots and scatter plots it appeared that the Ethicity variable was c
 ## Method and Results  
 <br>  
 
-### Logistic regression with lasso penalty  
+### Logistic regression with lasso penalty model  
 The logistic regression model with a lasso penalty was fit using the glmnet package. The value for lambda was chosen using 10 fold cross validation with 100 values of lambda evaluated using 10-fold cross validation to identify when the minimum misclassification error occurred and then the value within one standard error of this (lambda = 0.196) was selected (see Figure 3).  
 <br>  
 ![Figure 3](https://github.com/MarkMData/ML_classification_project/blob/main/images/lassoCV.jpeg)  
@@ -61,14 +61,23 @@ With the selected value of lambda, all but two of the variable coefficents were 
 
 <br>  
 
-### K-nearest neighbours  
-To identify the optimal value for k, 10-fold cross validation on the training data was used to iteratively assess the prediction accuracy for 50 values of k ranging from one to 99 (odd values only to prevent ties) with the best prediction accuracy occuring at k = 97 (see Figure 4). When tested againts the validation data the KNN model with k = 97 had sensitivity of 0.833, specificity of 0.822 and accuracy of 0.828 (results are displayed in Table 4.). 
+### K-nearest neighbours model  
+To identify the optimal value for k, 10-fold cross validation on the training data was used to iteratively assess the prediction accuracy for 50 values of k ranging from one to 99 (odd values only to prevent ties) with the best prediction accuracy occuring at k = 97 (see Figure 4). When tested againts the validation data the KNN model with k = 97 had sensitivity of 0.833, specificity of 0.822 and accuracy of 0.828 (results are displayed in Table 4). 
 <br>  
 ![Figure 4](https://github.com/MarkMData/ML_classification_project/blob/main/images/knnplot.jpeg)  
 ***Figure 4. 10-fold cross validation accuracy for odd values of k between 1 and 99.***  
 
 <br>  
-### 
+
+### Classification tree model  
+
+A full classification tree was created (using the rpart package) and then pruned, to reduce the likelihood of overfitting, based on the complexity parameter that corresponded to the lowest average prediction error within one standrad deviation from the minimum prediction error, determined by 10 fold cross validation. This resulted in a small tree with only the variables X.Country and Age included(see Figure 5). Sensitivity , specificity and accuracy for the classification tree against the validation data were 0.811, 0.7 and 0.7889 respectively (see Table 4).  
+<br>  
+
+![Figure 4](https://github.com/MarkMData/ML_classification_project/blob/main/images/treePlot.jpeg)  
+***Figure 5. Classification tree after pruning.***  
+
+
 
 ### References  
 Fehrman, E., Muhammad, A. K., Mirkes, E. M., Egan, V., & Gorban, A. N. (2017). The Five Factor Model of personality and evaluation of drug consumption risk (arXiv:1506.06297). arXiv. https://doi.org/10.48550/arXiv.1506.06297  
