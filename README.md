@@ -7,7 +7,7 @@
 
 ## Overview  
 
-The aim of the project was to evaluate whether drug use could be predicted from personality trait and demographic variables using a number of classification methods (logistic regression with lasso penalty, k-nearest neighbours, classification trees, random forests, support vector machines and canonical variate analysis).  The classification threshold used for all models was 0.5 such that probabilities above the threshold were deemed to indicate drug use and values below the threshold no drug use and the metrics used to evaluate model performance were accuracy, sensitivity and specificity. The data was based on All analysis was completed using R.  
+The aim of the project was to evaluate whether drug use could be predicted from personality trait and demographic variables using a number of classification methods (logistic regression with lasso penalty, k-nearest neighbours, classification trees, random forests and support vector machines).  The classification threshold used for all models was 0.5 such that probabilities above the threshold were deemed to indicate drug use and values below the threshold no drug use and the metrics used to evaluate model performance were accuracy, sensitivity and specificity. The data was based on All analysis was completed using R.  
 
 <br>  
 
