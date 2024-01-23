@@ -65,7 +65,7 @@ With the selected value of lambda, all but two of the variable coefficents were 
 To identify the optimal value for k, 10-fold cross validation on the training data was used to iteratively assess the prediction accuracy for 50 values of k ranging from one to 99 (odd values only to prevent ties) with the best prediction accuracy occuring at k = 97 (see Figure 4). When tested againts the validation data the KNN model with k = 97 had sensitivity of 0.833, specificity of 0.822 and accuracy of 0.828 (results are displayed in Table 4). 
 <br>  
 ![Figure 4](https://github.com/MarkMData/ML_classification_project/blob/main/images/knnplot.jpeg)  
-***Figure 4. 10-fold cross validation accuracy for odd values of k between 1 and 99.***  
+***Figure 4. 10-fold cross validation accuracy for knn model with odd values of k from 1 and 99.***  
 
 <br>  
 
@@ -83,7 +83,7 @@ The random forest model involved constructing many trees using bootstrapped samp
 <br>  
 
 ![Figure 5](https://github.com/MarkMData/ML_classification_project/blob/main/images/forestplot.jpeg)  
-***Figure 5. Average 10-fold cross validation accuracy for the random forst model with different numbers of predictors included at each split.***  
+***Figure 5. Average 10-fold cross validation accuracy for the random forest model with different numbers of predictors included at each split.***  
 <br>  
 ### Support vector machines model  
 The e1071 package was used to implement a SVM model with radial basis function. A grid of values for the cost parameter (2 raised to the power of intergers from -2 to 10) and gamma (10 raised to the power of integers from -7 to 0) using 10-fold cross validation. The average cross validation error is displayed in Figure 6, with the best tune occuring with a cost parameter of 512 and gamma = 0.00001. Using the best perfoming tuning parameters the SVM against the validation data the sensitvity was 0.844, specificity was 0.733, and accuracy was 0.789 (see Table 4 for results).  
@@ -91,16 +91,17 @@ The e1071 package was used to implement a SVM model with radial basis function. 
 ![Figure 6](https://github.com/MarkMData/ML_classification_project/blob/main/images/svmplot.jpeg)  
 ***Figure 6. Average 10-fold cross validation error for the SVM model with different values of the cost parameter and gamma.***  
 <br>  
-### Perfomance of best model on test data  
+### Summary of performance of all models against validation data  
+The performance of the five models against the validation data is presented in Table 4. The sensitivity was achieved with the KNN and SVM models equaly at (0.844), with the random forest model having the worst (0.767). The best specificity was achieved using the KNN model (0.811) with the logistic regression with lasso penalty model performing the worst (0.678). The best overall accuracy was achieved using the KNN model (0.828) with the logistic regression with lasso penalty model performing the worst (0.744).
 
-The 
 ***Table 4. Sensitivity, specificity and accuracy of all models against the validation data***
 |             | Logistic regression  with L1 penalty | KNN         | Trees       | Random forests | Support vector machines |
 |-------------|--------------------------------------|-------------|-------------|----------------|-------------------------|
 | Sensitivity | 0.811                                | 0.844       | 0.811       | 0.767          | 0.844                   |
 | Specificity | 0.678                                | 0.811       | 0.7         | 0.733          | 0.733                   |
-| Accuracy    | 0.744                                | 0.828        | 0.756      | 0.75           | 0.789                   |  
-<br>
+| Accuracy    | 0.744                                | 0.828       | 0.756       | 0.75           | 0.789                   |  
+<br>  
+## Perfomance of best model on test data  
 
 
 
