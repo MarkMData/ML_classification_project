@@ -2,7 +2,9 @@
 # Machine Learning Classification Project using R
 ## Predicting drug use with five machine learning algorithms  
 <br>  
+
 ***Note: This project was completed as part of an MSc in Data Analytics and uses a modified version of the data used in the study by Fehrman et al., (2017). The number of observations have been reduced and the data has been externally scaled to change some categorical variables to pseudo-continuous variables in order to simplify the analysis. It was provided to us in this format***  
+
 <br>  
 
 ## Overview  
@@ -12,7 +14,8 @@ The aim of the project was to evaluate whether drug use could be predicted from 
 <br>  
 
 ## Exploratory data analysis and pre-processing  
-The data set comprised of 600 observations with the dependent variable being a binary classifier indicating whether an individual had ever taken legal or illegal drugs (never taken drugs n = 300, has taken drugs n= 300) and the 11 independent variables all continuous (see Table 1 for an overview of the variables).  The dataset had no missing values.
+The data set comprised of 600 observations with the dependent variable being a binary classifier indicating whether an individual had ever taken legal or illegal drugs (never taken drugs n = 300, has taken drugs n= 300) and the 11 independent variables all continuous (see Table 1 for an overview of the variables).  The dataset had no missing values.  
+
 <br>  
 
 ***Table 1. Independent variables used in the analysis***  
@@ -36,7 +39,9 @@ The data set comprised of 600 observations with the dependent variable being a b
 The dataset was split into training (50% of observations), validation (30% of observations) and test (20% of observations) sets while preserving the distribution of the response variable, and this was done using the caret package. The training dataset was used for the exploratory analysis and model building, the validation dataset was used for comparing the performance of the different modelling approaches and the test dataset was used to assess the performance of the model that had the highest prediction accuracy on the validation data. The relationships between the response variable and the predictors are displayed in the boxplots of Figure 1. From the plots there appears to be an association between drug use and the variables Age, SS and X.Country, and several variables appear to have outliers.  
 
 <br>  
+
 ![Figure 1](https://github.com/MarkMData/ML_classification_project/blob/main/images/boxplots.jpeg)  
+
 ***Figure 1. Distributions for predictor variables by drug use (0 = never used, 1 = has used).***  
 <br>  
 
@@ -63,8 +68,10 @@ With the selected value of lambda, all but two of the variable coefficients were
 <br>  
 
 ### K-nearest neighbour’s model  
-To identify the optimal value for k, 10-fold cross validation was used to iteratively assess the prediction accuracy for 50 values of k ranging from one to 99 (odd values only to prevent ties) with the best prediction accuracy occurring at k = 97 (see Figure 4). When tested against the validation data the KNN model with k = 97 had sensitivity of 0.833, specificity of 0.822 and accuracy of 0.828 (results are displayed in Table 4). 
+To identify the optimal value for k, 10-fold cross validation was used to iteratively assess the prediction accuracy for 50 values of k ranging from one to 99 (odd values only to prevent ties) with the best prediction accuracy occurring at k = 97 (see Figure 4). When tested against the validation data the KNN model with k = 97 had sensitivity of 0.833, specificity of 0.822 and accuracy of 0.828 (results are displayed in Table 4).  
+
 <br>  
+
 ![Figure 4](https://github.com/MarkMData/ML_classification_project/blob/main/images/knnplot.jpeg)  
 ***Figure 4. 10-fold cross validation accuracy for KNN model with odd values of k from 1 and 99.***  
 
@@ -77,7 +84,9 @@ A full classification tree was created (using the rpart package) and then pruned
 
 ![Figure 4](https://github.com/MarkMData/ML_classification_project/blob/main/images/treePlot.jpeg)  
 ***Figure 5. Classification tree after pruning.***  
+
 <br>  
+
 ### Random forests model  
 The random forest model involved constructing many trees using bootstrapped samples of the training data and limiting the variables selected for each split to a random subset of the full variable set, and then averaging the result. To identify the best number of variables to include for random selection at each split, 10-fold cross validation was used to compare values from two to the full number of predictors. The best average prediction accuray was obtained when including 6 predictors for selection at each split and the resulting performance on the validation data with this configuration was sensitivity of 0.767, specificity of 0.733 and accuracy of 0.75 (results in table 4).  
 
@@ -105,7 +114,7 @@ The performance of the five models against the validation data is presented in T
 | Accuracy    | 0.744                                | 0.828       | 0.756       | 0.75           | 0.789                   |  
 <br>  
 
-### Performance of best model on test data  
+## Performance of best model on test data  
 
 As the KNN model had the best performance of the bunch, it was used against the test dataset and had sensitivity of 0.85, specificity of 0.85, and overall accuracy of 0.85 which indicates reasonable predictive performance.  
 <br>
